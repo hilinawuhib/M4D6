@@ -1,32 +1,36 @@
 import { Component } from "react";
-import AddComment from "./AddComment";
 import CommentList from "./CommentList";
+import AddComment from "./AddComment";
 
 class CommentArea extends Component {
   state = {
-    comments: []
+    comments: [],
   };
-  componentDidMount = async () => {
-    try {
-      let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/comments/" +
-          this.props.asin,
-        {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgyOGYxYWFhY2FhMjAwMTU1MmExN2UiLCJpYXQiOjE2NDE4MTgyNjUsImV4cCI6MTY0MzAyNzg2NX0.vjL4QBX-qneCjdPzpal2YXHjqtrPEPF9ba7EzWvtep0",
-          },
-        }
-      );
 
-      if (response.ok) {
-        let comment = await response.json();
-        this.setState({ comments: comment })
-      } else {
-        console.log("error");
+  componentDidUpdate = async (prevProps) => {
+    if (prevProps.asin !== this.props.asin) {
+      this.setState({});
+      try {
+        let response = await fetch(
+          "https://striveschool-api.herokuapp.com/api/comments/" +
+            this.props.asin,
+          {
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgyOGYxYWFhY2FhMjAwMTU1MmExN2UiLCJpYXQiOjE2NDE4MTgyNjUsImV4cCI6MTY0MzAyNzg2NX0.vjL4QBX-qneCjdPzpal2YXHjqtrPEPF9ba7EzWvtep0",
+            },
+          }
+        );
+        console.log(response);
+        if (response.ok) {
+          let comments = await response.json();
+          this.setState({ comments: comments });
+        } else {
+          console.log("error");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 

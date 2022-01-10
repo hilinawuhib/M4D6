@@ -54,12 +54,15 @@
   font-weight: bold;
 }
 .singleimage {
-  height: 280px;
-  width:250px;
+  height: 250px;
+  width: 180px;
 }
 .singlebook {
   margin-top: 10px;
-  width: 250px;
+  width: 180px;
   height: 480px;
   border: 1px rgb(199, 192, 192) solid;
+}
+body {
+  background-color: rgb(252, 251, 249);
 }

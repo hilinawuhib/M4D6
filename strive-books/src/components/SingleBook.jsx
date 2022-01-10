@@ -1,28 +1,34 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import CommentArea from "./CommentArea";
 
 class SingleBook extends React.Component {
-  state = {
-    selected: false,
-  };
-
   render() {
     return (
-      <div>
+      <>
         <Card
           className="singlebook"
-          onClick={() => this.setState({ selected: !this.state.selected })}
+          onClick={() => this.props.changeBook(this.props.book.asin)}
+          style={{
+            border:
+              this.props.selectedBook === this.props.book.asin
+                ? "1px solid green"
+                : "none",
+          }}
         >
-          <Card.Img className="singleimage"variant="top" src={this.props.book.img} />
+          <Card.Img
+            className="singleimage"
+            variant="top"
+            src={this.props.book.img}
+          />
           <Card.Body>
-            <Card.Title>{this.props.book.title}</Card.Title>
+            <Card.Title style={{ color: "black" }}>
+              {this.props.book.title}
+            </Card.Title>
             <h6>{this.props.book.category}</h6>
             <h6>{this.props.book.price}$</h6>
           </Card.Body>
         </Card>
-        {this.state.selected && <CommentArea asin={this.props.book.asin} />}
-      </div>
+      </>
     );
   }
 }
